@@ -14,6 +14,8 @@ Return: The integer corresponding to the square of the hypotenuse of the right t
 ```
 ### My solution:
 
+```
 a = 938
 b = 981
-print(a**2 + b**2)
+print(a**2 + b**2)`
+```
