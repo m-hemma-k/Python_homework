@@ -3,7 +3,7 @@
 ### Section: Rosalind exercise INI2
 ### Date: 12.11.2024
 
-## **Rosalind exercise INI2**
+### **Rosalind exercise INI2**
 ### Variables and Some Arithmetic
 
 ```
@@ -17,5 +17,5 @@ Return: The integer corresponding to the square of the hypotenuse of the right t
 ```
 a = 938
 b = 981
-print(a**2 + b**2)`
+print(a**2 + b**2)
 ```
