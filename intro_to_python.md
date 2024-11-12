@@ -1,4 +1,3 @@
-#!/usr/bin/env python3
 ## Note: This script requires Python 3.12.7
 
 
@@ -326,3 +325,5 @@ GDP_2018={"US": 21, "China": 16, "Japan": 5, "Germany": 4, "India": 3, "France":
 italy_gdp= GDP_2018.pop("Italy")
 print(GDP_2018)
 print(italy_gdp, "trillion USD")
+
+\```
