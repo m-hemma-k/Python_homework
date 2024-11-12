@@ -1,7 +1,7 @@
 # **Homework by Hemma Kargl**
-## Course: **2024W 300160-1 Practical introduction to programming for biologists**
-### Section: Rosalind exercise INI2
-### Date: 12.11.2024
+### Course: **2024W 300160-1 Practical introduction to programming for biologists**
+#### Section: Rosalind exercise INI2
+#### Date: 12.11.2024
 
 ## **Rosalind exercise INI2**
 ### Variables and Some Arithmetic
