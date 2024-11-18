@@ -4,6 +4,7 @@
 # PROBLEM: In DNA strings, symbols 'A' and 'T' are complements of each other, as are 'C' and 'G'.
 # The reverse complement of a DNA string s is the string sc formed by reversing the symbols of s, then taking the complement of each symbol (e.g., the reverse complement of "GTCA" is "TGAC").
 
+"""
 # Given: A DNA string s of length at most 1000 bp.
 filepath = "./rosalind_data/rosalind_REVC.txt"
 
@@ -12,16 +13,29 @@ with open(filepath, 'r') as infile:
     # Read line from the file
     sequence = infile.readline().strip()
 
+sequence = 'AAAACCCGGT'
+
 # Return: The reverse complement sc of s.
-reverse_complement = ''
+complement = ''
 for nt in sequence:
     if nt == 'A':
-        reverse_complement += 'T'
+        complement += 'T'
     elif nt == 'T':
-        reverse_complement += 'A'
+        complement += 'A'
     elif nt == 'C':
-        reverse_complement += 'G'
+        complement += 'G'
     else:
-        reverse_complement += 'C'
+        complement += 'C'
 
-print(reverse_complement[::-1])
+print(complement[::-1])
+"""
+
+from util import complement
+
+sequence = 'AAAACCCGGT'
+sequence_comp =''
+
+for nt in sequence:
+    sequence_comp += complement(nt)
+
+print(sequence_comp[::-1])

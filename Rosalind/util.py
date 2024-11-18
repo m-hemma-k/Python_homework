@@ -9,3 +9,14 @@ def read_input(filepath):
         for line in lines:
             stripped.append(line.strip())
     return stripped
+
+def complement (sequence):
+    for nt in sequence:
+        if nt == 'A':
+            return'T'
+        elif nt == 'T':
+            return'A'
+        elif nt == 'C':
+            return'G'
+        else:
+            return'C'
