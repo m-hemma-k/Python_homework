@@ -4,7 +4,24 @@
 # PROBLEM: An RNA string is a string formed from the alphabet containing 'A', 'C', 'G', and 'U'.
 # Given a DNA string t corresponding to a coding strand, its transcribed RNA string u is formed by replacing all occurrences of 'T' in t with 'U' in u.
 
+from util_hemma import read_sequence # type: ignore
+
+string = "./rosalind_data/rosalind_REVC.txt"
+sequence = read_sequence(string)
+
+RNA = ''
+
+for nt in sequence:
+    if nt == 'T':
+        RNA += 'U'
+    else:
+        RNA += nt
+
+print(RNA)
+
 """
+OLD SOLUTION
+
 # Given: A DNA string t having length at most 1000 nt.
 filepath = "./rosalind_data/rosalind_RNA.txt"
 
@@ -17,16 +34,6 @@ with open(filepath, 'r') as infile:
 # Return: The transcribed RNA string of t.
 RNA = sequence.replace("T", "U")
 print(RNA)
-"""
 
-sequence = 'GATGGAACTTGACTACGTAAATT'
-RNA = ''
-
-for nt in sequence:
-    if nt == 'T':
-        RNA += 'U'
-    else:
-        RNA += nt
-
-print(RNA)
-    
+OLD SOLUTION
+"""    

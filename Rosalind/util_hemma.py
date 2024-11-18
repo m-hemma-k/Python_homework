@@ -10,6 +10,11 @@ def read_input(filepath):
             stripped.append(line.strip())
     return stripped
 
+def read_sequence(filepath):
+    with open(filepath, 'r') as infile:
+        sequence = infile.readline().strip()
+    return sequence
+
 def complement (sequence):
     for nt in sequence:
         if nt == 'A':

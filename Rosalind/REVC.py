@@ -4,7 +4,21 @@
 # PROBLEM: In DNA strings, symbols 'A' and 'T' are complements of each other, as are 'C' and 'G'.
 # The reverse complement of a DNA string s is the string sc formed by reversing the symbols of s, then taking the complement of each symbol (e.g., the reverse complement of "GTCA" is "TGAC").
 
+from util_hemma import read_sequence # type: ignore
+from util_hemma import complement # type: ignore
+
+DNA = "./rosalind_data/rosalind_REVC.txt"
+sequence = read_sequence(DNA)
+sequence_comp =''
+
+for nt in sequence:
+    sequence_comp += complement(nt)
+
+print(sequence_comp[::-1])
+
 """
+OLD SOLUTION
+
 # Given: A DNA string s of length at most 1000 bp.
 filepath = "./rosalind_data/rosalind_REVC.txt"
 
@@ -28,14 +42,6 @@ for nt in sequence:
         complement += 'C'
 
 print(complement[::-1])
+
+OLD SOLUTION
 """
-
-from util import complement
-
-sequence = 'AAAACCCGGT'
-sequence_comp =''
-
-for nt in sequence:
-    sequence_comp += complement(nt)
-
-print(sequence_comp[::-1])
