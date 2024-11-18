@@ -9,35 +9,36 @@
 # Return: The ID of the string having the highest GC-content, followed by the GC-content of that string. 
 # Rosalind allows for a default error of 0.001 in all decimal answers unless otherwise stated; please see the note on absolute error below.
 
-def calculate_gc_content(dna_string):
-    g_count = dna_string.count('G')
-    c_count = dna_string.count('C')
-    gc_pairs = g_count + c_count
-    nt_counts = len(dna_string)
-    gc_percentage = (gc_pairs / nt_counts) * 100
-    return gc_percentage
+from Bio import SeqIO
 
-sequences = {
-    "Sequence 1": "CCACCCTCGTGGTATGGCTAGGCATTCAGGAACCGGAGAACGCTTCAGACCAGCCCGGACTGGGAACCTGCGGGCAGTAGGTGGAAT",
-    "Sequence 2": "CCTGCGGAAGATCGGCACTAGAATAGCCAGAACCGTTTCTCTGAGGCTTCCGGCCTTCCCTCCCACTAATAATTCTGAGG",
-    "Sequence 3": "ATGCCAGTAGCTAGCTAGCTGACTGATCGTAGCTAGCTAGCTGACTGATCGTAGCTAGCTAGCTGACTGATCGTAGCTAGC"
-}
+def read_sequences(file_path):
+    sequences = {}
+    with open(file_path, 'r') as file:
+        for record in SeqIO.parse(file, 'fasta'):
+            sequences[record.id] = str(record.seq)
+    return sequences
 
-gc_contents = {}
-for name, sequence in sequences.items():
-    gc_contents[name] = calculate_gc_content(sequence)
+def calculate_gc_content(sequence):
+    gc_count = sequence.count('G') + sequence.count('C')
+    return (gc_count / len(sequence)) * 100
 
-# Initialize variables to keep track of the highest GC content and corresponding sequence name
-highest_gc_sequence = None
-highest_gc_percentage = 0
+def find_highest_gc_content(gc_contents):
+    highest_gc_sequence = None
+    highest_gc_percentage = 0
+    for name, gc_percentage in gc_contents.items():
+        if gc_percentage > highest_gc_percentage:
+            highest_gc_percentage = gc_percentage
+            highest_gc_sequence = name
+    return highest_gc_sequence, highest_gc_percentage
 
-# Iterate over the gc_contents dictionary
-for name, gc_percentage in gc_contents.items():
-    if gc_percentage > highest_gc_percentage:
-        highest_gc_percentage = gc_percentage
-        highest_gc_sequence = name
+def main(file_path):
+    sequences = read_sequences(file_path)
+    gc_contents = {}
+    for name, seq in sequences.items():
+        gc_contents[name] = calculate_gc_content(seq)
+    highest_gc_sequence, highest_gc_percentage = find_highest_gc_content(gc_contents)
+    print(highest_gc_sequence)
+    print("{:.6f}".format(highest_gc_percentage))
 
-# Print the result
-# Print the result
-print(highest_gc_sequence) 
-print("{:.6f}".format(highest_gc_percentage))
+file_path = "./rosalind_data/rosalind_GC.txt"
+main(file_path)

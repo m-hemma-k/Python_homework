@@ -39,81 +39,52 @@ Rosalind_0808
 ### 1. Think of the problem in a smaller way:
 #####    Use a simple, short sequence and calculate the GC content from it and make a function.
 #####    --> We can use the GC calculator function later on.
-#####    - Define one short DNA sequence as a string.
 #####    - Count the occurrences if 'G' and 'C'.
 #####    - Calculate the total number of GC pairs.
 #####    - Calculate the length of the sequence.
 #####    - Calculate the percentage.
-#####    - The output in Rosalind is 6 decimal places.
 ```
-def calculate_gc_content(dna_string):
-    g_count = dna_string.count('G')
-    c_count = dna_string.count('C')
-    gc_pairs = g_count + c_count
-    nt_counts = len(dna_string)
-    gc_percentage = (gc_pairs / nt_counts) * 100
-    return gc_percentage
-
-sequence = "CCACCCTCGTGGTATGGCTAGGCATTCAGGAACCGGAGAACGCTTCAGACCAGCCCGGACTGGGAACCTGCGGGCAGTAGGTGGAAT"
-
-gc_content = calculate_gc_content(sequence)
-print("{:.6f}".format(gc_content))
+def calculate_gc_content(sequence):
+    gc_count = sequence.count('G') + sequence.count('C')
+    return (gc_count / len(sequence)) * 100
 ```
 
-### 2. We can now make the problem bigger by using more than one sequence and identifying the DNA string with the highest GC content.
-#####    --> Output: The DNA sequence name with the highest GC content and the percentage.
-#####    - The sequences are put in a dictionary.
-#####    - Before we put anything in a function, we have to take a closer look at the FASTA format file input and potentially modify.
+### 2. Making a function for the highest GC content.
+#####   - Iniate the variables with none and 0.
+#####   - Loop over sequences to find the sequence with the highest GC percentage.
 ```
-sequences = {
-    "Sequence 1": "CCACCCTCGTGGTATGGCTAGGCATTCAGGAACCGGAGAACGCTTCAGACCAGCCCGGACTGGGAACCTGCGGGCAGTAGGTGGAAT",
-    "Sequence 2": "CCTGCGGAAGATCGGCACTAGAATAGCCAGAACCGTTTCTCTGAGGCTTCCGGCCTTCCCTCCCACTAATAATTCTGAGG",
-    "Sequence 3": "ATGCCAGTAGCTAGCTAGCTGACTGATCGTAGCTAGCTAGCTGACTGATCGTAGCTAGCTAGCTGACTGATCGTAGCTAGC"
-}
-
-gc_contents = {}
-for name, sequence in sequences.items():
-    gc_contents[name] = calculate_gc_content(sequence)
-
-# Initialize variables to keep track of the highest GC content and corresponding sequence name
-highest_gc_sequence = None
-highest_gc_percentage = 0
-
-# Iterate over the gc_contents dictionary
-for name, gc_percentage in gc_contents.items():
-    if gc_percentage > highest_gc_percentage:
-        highest_gc_percentage = gc_percentage
-        highest_gc_sequence = name
-
-# Print the result
-print(highest_gc_sequence) 
-print("{:.6f}".format(highest_gc_percentage))
+def find_highest_gc_content(gc_contents):
+    highest_gc_sequence = None
+    highest_gc_percentage = 0
+    for name, gc_percentage in gc_contents.items():
+        if gc_percentage > highest_gc_percentage:
+            highest_gc_percentage = gc_percentage
+            highest_gc_sequence = name
+    return highest_gc_sequence, highest_gc_percentage
 ```
 
-### 3. Look up in the internet how to read out fast file formats.
-#####    -
-#####    - 
-#####    - 
+### 3. Look up in the internet how to read out fasta file formats.
 ```
-def read_fasta(file_path):
+def read_sequences(file_path):
     sequences = {}
     with open(file_path, 'r') as file:
-        sequence_name = ""
-        sequence_data = ""
-        for line in file:
-            line = line.strip()
-            if line.startswith(">"):
-                if sequence_name:
-                    sequences[sequence_name] = sequence_data
-                sequence_name = line[1:]  # Remove the '>' character
-                sequence_data = ""
-            else:
-                sequence_data += line
-        if sequence_name:
-            sequences[sequence_name] = sequence_data
+        for record in SeqIO.parse(file, 'fasta'):
+            sequences[record.id] = str(record.seq)
     return sequences
+```
 
-# Example usage
-file_path = "path_to_your_file.txt"
-sequences = read_fasta(file_path)
+### 4. Put all the functions together and print out the result.
+```
+def main(file_path):
+    sequences = read_sequences(file_path)
+
+    gc_contents = {}
+    for name, seq in sequences.items():
+        gc_contents[name] = calculate_gc_content(seq)
+    highest_gc_sequence, highest_gc_percentage = find_highest_gc_content(gc_contents)
+    print(highest_gc_sequence)
+    print("{:.6f}".format(highest_gc_percentage))
+
+file_path = "./rosalind_data/rosalind_GC.txt"
+main(file_path)
 ```
