@@ -16,7 +16,7 @@ def read_sequences(file_path):
     with open(file_path, 'r') as file:
         for record in SeqIO.parse(file, 'fasta'):
             sequences[record.id] = str(record.seq)
-    return sequences
+    return sequences 
 
 def calculate_gc_content(sequence):
     gc_count = sequence.count('G') + sequence.count('C')

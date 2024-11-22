@@ -77,7 +77,6 @@ def read_sequences(file_path):
 ```
 def main(file_path):
     sequences = read_sequences(file_path)
-
     gc_contents = {}
     for name, seq in sequences.items():
         gc_contents[name] = calculate_gc_content(seq)
