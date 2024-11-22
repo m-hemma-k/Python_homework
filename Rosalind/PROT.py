@@ -49,7 +49,6 @@ def protein_string(mrna):
         if codon == 'Stop':
             break
         result += codon
-
     return result
 
 large_dataset = open("./rosalind_data/rosalind_prot.txt").read()
