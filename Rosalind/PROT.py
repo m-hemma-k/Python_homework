@@ -52,8 +52,5 @@ def protein_string(mrna):
 
     return result
 
-
-if __name__ == "__main__":
-    large_dataset = open("./rosalind_data/rosalind_prot.txt").read()
-
-    print(protein_string(large_dataset))
+large_dataset = open("./rosalind_data/rosalind_prot.txt").read()
+print(protein_string(large_dataset))
