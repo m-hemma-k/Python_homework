@@ -9,16 +9,15 @@ def rabbit_pairs(n, k):
         return 1
     
     # Initialize the first two months
-    F1 = 1
-    F2 = 1
+    F1 = 1 # the first generation
+    F2 = 1 # the first generation matures which gets offspring in the next generation
     
     # Calculate the number of rabbit pairs for each month
     for i in range(3, n + 1):
-        Fn = F1 + k * F2
-        F2 = F1
-        F1 = Fn
-    
-    return Fn
+        Fn = F1 + k * F2 # all rabits + new born rabits which can only be born by F2 generation
+        F2 = F1 # F1 matures to F2 and F2 gets offspring the next time
+        F1 = Fn # all rabbits are now F1
+    return Fn # if n generations are done it will return all the rabbits
 
 # Sample Dataset
 n = 31
