@@ -25,3 +25,24 @@ def complement (sequence):
             return'G'
         else:
             return'C'
+
+def read_fasta(fasta):
+    sequences = {}
+    current_id = ""
+    for line in fasta:
+        if line.startswith(">"):
+            current_id = line[1:].strip()
+            sequences[current_id] = ""
+        else:
+            sequences[current_id] += line.strip()
+    return sequences
+
+def read_oneseq_fasta(fasta_path):
+    seq = ""
+    with open(fasta_path, 'r') as fasta:
+        for line in fasta:
+            if line.startswith(">"):
+                pass  # Überspringt die Header-Zeilen
+            else:
+                seq += line.strip()
+    return seq
