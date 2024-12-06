@@ -31,12 +31,30 @@ def part_one(grid, width, height):
                 if x + 3 * dx not in range(width) or y + 3 * dy not in range(height):
                     continue  # Wenn nicht, überspringe diese Iteration
                 
-                # Überprüfe, ob das Muster "XMAS" in der aktuellen Richtung gefunden wird
-                if all(grid[y + i * dy][x + i * dx] == c for i, c in enumerate("XMAS")):
-                    part1 += 1  # Erhöhe den Zähler, wenn das Muster gefunden wird
+                # # Überprüfe, ob das Muster "XMAS" in der aktuellen Richtung gefunden wird
+                # if all(grid[y + i * dy][x + i * dx] == c for i, c in enumerate("XMAS")):
+                #     part1 += 1  # Erhöhe den Zähler, wenn das Muster gefunden wird
                 
+                # # Überprüfe, ob das Muster "SAMX" in der aktuellen Richtung gefunden wird
+                # if all(grid[y + i * dy][x + i * dx] == c for i, c in enumerate("SAMX")):
+                #     part1 += 1  # Erhöhe den Zähler, wenn das Muster gefunden wird
+
+                # # Überprüfe, ob das Muster "XMAS" in der aktuellen Richtung gefunden wird
+                found_xmas = True
+                for i, c in enumerate("XMAS"):
+                    if grid[y + i * dy][x + i * dx] != c:
+                        found_xmas = False
+                        break
+                if found_xmas:
+                    part1 += 1  # Erhöhe den Zähler, wenn das Muster gefunden wird
+
                 # Überprüfe, ob das Muster "SAMX" in der aktuellen Richtung gefunden wird
-                if all(grid[y + i * dy][x + i * dx] == c for i, c in enumerate("SAMX")):
+                found_samx = True
+                for i, c in enumerate("SAMX"):
+                    if grid[y + i * dy][x + i * dx] != c:
+                        found_samx = False
+                        break
+                if found_samx:
                     part1 += 1  # Erhöhe den Zähler, wenn das Muster gefunden wird
     
     # Gib die Anzahl der gefundenen Muster aus
