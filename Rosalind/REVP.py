@@ -37,7 +37,7 @@ def find_restriction(fasta):
         for j in range(4, 13):
             if i + j <= l:
                 dna = fasta[i:i+j]
-                if len(dna) >= 4 and dna == rev_comp(dna):
+                if dna == rev_comp(dna):
                     positions.append((i + 1, j))
     return positions
 
