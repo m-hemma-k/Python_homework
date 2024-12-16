@@ -40,8 +40,6 @@ def read_input(filepath):
     return stripped
 
 def find_introns(stripped):
-    result = ''
-
     s = stripped[0]
     introns = []
 
@@ -51,27 +49,32 @@ def find_introns(stripped):
     for i in introns:
         s = s.replace(i, '')
 
-    for i in range(0, len(s), 3):
-        codon = s[i:i+3]
+    return s
 
-        protein = None
+def translate(cds):
+    protein = ''
+    for i in range(0, len(cds), 3):
+        codon = cds[i:i+3]
+
+        aa = None
         if CODONS.get(codon):
-            protein = CODONS[codon]
+            aa = CODONS[codon]
     
-        if protein == 'Stop':
+        if aa == 'Stop':
             break
 
-        if protein:
-            result += protein
+        if aa:
+            protein += aa
 
-    return result
+    return protein
 
 def main():
     # filepath = './rosalind_data/test_SPLC.txt' # testdata
     filepath = './rosalind_data/rosalind_splc.txt'
     data = read_input(filepath)
 
-    protein = find_introns(data)
+    cds = find_introns(data)
+    protein = translate(cds)
     print(protein)
 
 if __name__ == '__main__':
