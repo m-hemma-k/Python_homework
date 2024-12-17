@@ -28,20 +28,29 @@ CODONS = {
     'TGG': 'W',     'CGG': 'R',     'AGG': 'R',     'GGG': 'G'
 }
 
-def read_input(filepath):
-    with open(filepath, 'r') as infile:
-        lines = infile.readlines()
-        stripped = []
-        for line in lines:
-            if line.startswith('>'):
-                continue
+def read_fasta(path):
+    sequences = []
+    current_sequence = ""
+
+    with open(path, 'r') as fasta:
+        for line in fasta:
+            line = line.strip()
+            
+            if line.startswith(">"):
+                if current_sequence:
+                    sequences.append(current_sequence)
+                    current_sequence = ""
             else:
-                stripped.append(line.strip())
-    return stripped
+                current_sequence += line
+
+        if current_sequence:
+            sequences.append(current_sequence)
+
+    return sequences
 
 def find_introns(stripped):
     s = stripped[0]
-    introns = []
+    introns = stripped[1:]
 
     for i in range(1, len(stripped)):
         introns.append(stripped[i])
@@ -71,7 +80,7 @@ def translate(cds):
 def main():
     # filepath = './rosalind_data/test_SPLC.txt' # testdata
     filepath = './rosalind_data/rosalind_splc.txt'
-    data = read_input(filepath)
+    data = read_fasta(filepath)
 
     cds = find_introns(data)
     protein = translate(cds)
